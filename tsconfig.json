@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+
+    /* Basic Options */
+    "target": "es2017",
+    "module": "commonjs",
+    "allowJs": true,
+    "checkJs": true,
+    "declaration": true,
+    "sourceMap": true,
+    "outFile": "./dist/index.js",
+    "rootDir": "./src",
+
+    /* Strict Type-Checking Options */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+
+    /* Additional Checks */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Module Resolution Options */
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "allowSyntheticDefaultImports": true
+
+  }
+}

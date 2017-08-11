@@ -1,0 +1,43 @@
+{
+  "name": "draftable",
+  "version": "0.0.1",
+  "description": "Use Draft js without knowing a lot about Draft js",
+  "main": "dist/index.js",
+  "repository": "https://github.com/esmevane/draftable",
+  "author": "Joseph McCormick <esmevane@gmail.com>",
+  "scripts": {
+    "test": "jest --watchAll"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "notify": true,
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(tsx?|jsx?)$",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/tmp/"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json",
+      "jsx"
+    ]
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^4.0.2",
+    "@types/draft-js": "^0.10.10",
+    "@types/immutable": "^3.8.7",
+    "@types/jest": "^20.0.6",
+    "chai": "^4.1.1",
+    "draft.js": "^0.2.0",
+    "immutable": "^3.8.1",
+    "jest": "^20.0.4",
+    "ts-jest": "^20.0.10",
+    "typescript": "^2.4.2",
+    "watchman": "^0.1.8"
+  }
+}
