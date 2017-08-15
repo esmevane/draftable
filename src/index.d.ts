@@ -9,8 +9,11 @@ type DraftableUnit =
 type Renderable = Draft.EditorState
 type Init = '@Operable:Init'
 type Reject = '@Operable:Reject'
-type OperableTypes = Init | Reject
+type Compose = '@Operable:Compose'
+type OperableTypes = Compose | Init | Reject
 type OperablePayloads = DraftableUnit
+
+type PerformOperation = (result: Result, operation: Operable) => Result
 
 interface DraftableResultOptions {
   state: DraftableUnit
@@ -18,9 +21,11 @@ interface DraftableResultOptions {
   active?: boolean
 }
 
-interface DraftableResult {
+interface Result {
+  reject(reason: TextContent): Result
   isOk(): boolean
   getState(): DraftableUnit
+  getError(): TextContent
 }
 
 interface OperableOptions {
@@ -29,5 +34,6 @@ interface OperableOptions {
 }
 
 interface Operable {
-  perform(result: DraftableResult): DraftableResult
+  getPayload(): OperablePayloads
+  perform(result: Result): Result
 }

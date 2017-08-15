@@ -1,40 +1,12 @@
-import { Map } from 'immutable'
-import DraftableResult from './draftable-result'
-import * as utils from './utils'
-
-export const Init: Init = '@Operable:Init'
-export const Reject: Reject = '@Operable:Reject'
-
-type PerformOperation = (
-  result: DraftableResult,
-  operation: Operation
-) => DraftableResult
-
-const init: PerformOperation = (
-  _result: DraftableResult,
-  operation: Operation
-): DraftableResult =>
-  new DraftableResult({
-    state: utils.ensureRenderable(operation.getPayload())
-  })
-
-const reject: PerformOperation = (
-  result: DraftableResult,
-  operation: Operation
-): DraftableResult => result.reject(operation.getPayload() as string)
-
-const OperationMap: Map<string, PerformOperation> = Map({
-  [Reject]: reject,
-  [Init]: init
-})
+import * as Operations from './operations'
 
 class Operation implements Operable {
   static init(payload: DraftableUnit): Operation {
-    return new Operation({ type: Init, payload })
+    return new Operation({ type: Operations.Init, payload })
   }
 
   static reject(payload: DraftableUnit): Operation {
-    return new Operation({ type: Reject, payload })
+    return new Operation({ type: Operations.Reject, payload })
   }
 
   private type: OperableTypes
@@ -49,8 +21,8 @@ class Operation implements Operable {
     return this.payload
   }
 
-  perform(result: DraftableResult): DraftableResult {
-    const theBehavior = OperationMap.get(this.type)
+  perform(result: Result): Result {
+    const theBehavior = Operations.fetch(this.type)
 
     return theBehavior(result, this)
   }
