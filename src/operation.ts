@@ -10,14 +10,22 @@ type PerformOperation = (
   operation: Operation
 ) => DraftableResult
 
-const OperationMap: Map<string, PerformOperation> = Map({
-  [Reject]: (result: DraftableResult, operation: Operation): DraftableResult =>
-    result.reject(operation.getPayload() as string),
+const init: PerformOperation = (
+  _result: DraftableResult,
+  operation: Operation
+): DraftableResult =>
+  new DraftableResult({
+    state: utils.ensureRenderable(operation.getPayload())
+  })
 
-  [Init]: (_result: DraftableResult, operation: Operation): DraftableResult =>
-    new DraftableResult({
-      state: utils.ensureEditorState(operation.getPayload())
-    })
+const reject: PerformOperation = (
+  result: DraftableResult,
+  operation: Operation
+): DraftableResult => result.reject(operation.getPayload() as string)
+
+const OperationMap: Map<string, PerformOperation> = Map({
+  [Reject]: reject,
+  [Init]: init
 })
 
 class Operation implements Operable {

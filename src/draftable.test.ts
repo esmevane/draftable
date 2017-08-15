@@ -29,7 +29,7 @@ describe('Draftable', () => {
   })
 
   describe('render', () => {
-    it('creates an EditorState', () => {
+    it('creates a Renderable (EditorState)', () => {
       const subject = draftable.render()
 
       expect(subject.constructor.name).to.eql('EditorState')

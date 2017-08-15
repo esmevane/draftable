@@ -20,7 +20,7 @@ class Draftable {
     return utils.getText(this.render())
   }
 
-  render(): Draft.EditorState {
+  render(): Renderable {
     const compose = (
       result: DraftableResult,
       operation: Operation
@@ -28,7 +28,7 @@ class Draftable {
 
     const result = this.operables.reduce(compose, DraftableResult.empty())
 
-    return utils.ensureEditorState(result.getState())
+    return utils.ensureRenderable(result.getState())
   }
 
   reject(reason: DraftableError) {

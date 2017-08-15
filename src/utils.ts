@@ -7,10 +7,10 @@ export const getText = (state: DraftableUnit): string => {
 
   if (constructor === 'String') return state as string
 
-  return ensureEditorState(state).getCurrentContent().getPlainText()
+  return ensureRenderable(state).getCurrentContent().getPlainText()
 }
 
-export const ensureEditorState = (state: DraftableUnit): Draft.EditorState => {
+export const ensureRenderable = (state: DraftableUnit): Draft.EditorState => {
   switch (state.constructor.name) {
     case 'String':
       return EditorState.createWithContent(

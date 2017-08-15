@@ -6,6 +6,7 @@ type DraftableUnit =
   | Draft.ContentBlock
   | Draft.EditorState
 
+type Renderable = Draft.EditorState
 type Init = '@Operable:Init'
 type Reject = '@Operable:Reject'
 type OperableTypes = Init | Reject

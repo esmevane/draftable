@@ -29,17 +29,17 @@ describe('getText', () => {
   })
 })
 
-describe('ensureEditorState', () => {
+describe('ensureRenderable', () => {
   it("hands back any string it's given", () => {
     const message = 'Hello'
-    const subject = utils.ensureEditorState(message)
+    const subject = utils.ensureRenderable(message)
 
     expect(subject.getCurrentContent().getPlainText()).to.eql(message)
   })
 
   it("returns the same EditorState it's given", () => {
     const editorState: EditorState = EditorState.createEmpty()
-    const subject = utils.ensureEditorState(editorState)
+    const subject = utils.ensureRenderable(editorState)
 
     expect(subject).to.eql(editorState)
   })
@@ -47,7 +47,7 @@ describe('ensureEditorState', () => {
   it('builds an EditorState from a ContentState', () => {
     const message = 'Hello'
     const contentState: ContentState = ContentState.createFromText(message)
-    const subject = utils.ensureEditorState(contentState)
+    const subject = utils.ensureRenderable(contentState)
 
     expect(subject.getCurrentContent().getPlainText()).to.eql(message)
   })
@@ -55,7 +55,7 @@ describe('ensureEditorState', () => {
   it('builds an EditorState from a ContentBlock', () => {
     const message = 'hey!'
     const contentBlock = new ContentBlock({ text: message })
-    const subject = utils.ensureEditorState(contentBlock)
+    const subject = utils.ensureRenderable(contentBlock)
 
     expect(subject.getCurrentContent().getPlainText()).to.eql(message)
   })
