@@ -12,10 +12,6 @@ describe('Draftable', () => {
     it('initializes with the content', () => {
       expect(draftable.toOperations()).to.eql([init])
     })
-
-    // it('can be initialized with an editor state')
-    // it('can be initialized with a content state')
-    // it('can be initialized with a content block')
   })
 
   describe('reject', () => {
@@ -33,16 +29,18 @@ describe('Draftable', () => {
   })
 
   describe('render', () => {
-    it('definitely has the right text', () => {
-      const text = draftable.render().getCurrentContent().getPlainText()
+    it('creates an EditorState', () => {
+      const subject = draftable.render()
+
+      expect(subject.constructor.name).to.eql('EditorState')
+    })
+  })
+
+  describe('getText', () => {
+    it('returns the text content', () => {
+      const text = draftable.getText()
 
       expect(text).to.eql('Hello there!')
     })
   })
-
-  // describe('getText', () => {
-  //   it('produces the plain text content', () => {
-  //     expect(draftable.getText()).to.eql('Hello there!')
-  //   })
-  // })
 })

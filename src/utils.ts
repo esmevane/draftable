@@ -1,5 +1,15 @@
 import { ContentState, EditorState } from 'draft-js'
 
+export const createEmpty = (): Draft.EditorState => EditorState.createEmpty()
+
+export const getText = (state: DraftableUnit): string => {
+  const constructor = state.constructor.name
+
+  if (constructor === 'String') return state as string
+
+  return ensureEditorState(state).getCurrentContent().getPlainText()
+}
+
 export const ensureEditorState = (state: DraftableUnit): Draft.EditorState => {
   switch (state.constructor.name) {
     case 'String':

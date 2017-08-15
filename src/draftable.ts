@@ -1,6 +1,7 @@
 import { List } from 'immutable'
 import DraftableResult from './draftable-result'
 import Operation from './operation'
+import * as utils from './utils'
 
 class Draftable {
   private operables: List<Operable>
@@ -15,13 +16,19 @@ class Draftable {
       : List.of(operables) as List<Operable>
   }
 
+  getText(): string {
+    return utils.getText(this.render())
+  }
+
   render(): Draft.EditorState {
     const compose = (
       result: DraftableResult,
       operation: Operation
     ): DraftableResult => (result.isOk() ? operation.perform(result) : result)
 
-    return this.operables.reduce(compose, DraftableResult.empty()).getState()
+    const result = this.operables.reduce(compose, DraftableResult.empty())
+
+    return utils.ensureEditorState(result.getState())
   }
 
   reject(reason: DraftableError) {

@@ -1,15 +1,24 @@
-import { ContentState, EditorState } from 'draft-js'
+import { Map } from 'immutable'
 import DraftableResult from './draftable-result'
+import * as utils from './utils'
 
 export const Init: Init = '@Operable:Init'
 export const Reject: Reject = '@Operable:Reject'
 
-const initOperation = (operation: Operation): DraftableResult =>
-  new DraftableResult({
-    state: EditorState.createWithContent(
-      ContentState.createFromText(operation.getPayload() as string)
-    )
-  })
+type PerformOperation = (
+  result: DraftableResult,
+  operation: Operation
+) => DraftableResult
+
+const OperationMap: Map<string, PerformOperation> = Map({
+  [Reject]: (result: DraftableResult, operation: Operation): DraftableResult =>
+    result.reject(operation.getPayload() as string),
+
+  [Init]: (_result: DraftableResult, operation: Operation): DraftableResult =>
+    new DraftableResult({
+      state: utils.ensureEditorState(operation.getPayload())
+    })
+})
 
 class Operation implements Operable {
   static init(payload: DraftableUnit): Operation {
@@ -33,14 +42,9 @@ class Operation implements Operable {
   }
 
   perform(result: DraftableResult): DraftableResult {
-    switch (this.type) {
-      case Init:
-        return initOperation(this)
-      case Reject:
-        return result.reject(this.payload as string)
-      default:
-        return result
-    }
+    const theBehavior = OperationMap.get(this.type)
+
+    return theBehavior(result, this)
   }
 }
 

@@ -1,4 +1,3 @@
-import { EditorState } from 'draft-js'
 import * as utils from './utils'
 
 class DraftableResult implements DraftableResult {
@@ -8,7 +7,7 @@ class DraftableResult implements DraftableResult {
 
   static empty(): DraftableResult {
     return new DraftableResult({
-      state: EditorState.createEmpty(),
+      state: utils.createEmpty(),
       error: ''
     })
   }
@@ -33,14 +32,13 @@ class DraftableResult implements DraftableResult {
   }
 
   getText(): TextContent {
-    const state = utils.ensureEditorState(this.state)
-
-    return state.getCurrentContent().getPlainText()
+    return utils.getText(this.state)
   }
 
   reject(error: DraftableError): DraftableResult {
     const { state } = this
     const active = false
+
     return new DraftableResult({ active, state, error })
   }
 }
