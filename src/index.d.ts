@@ -6,6 +6,7 @@ type DraftableUnit =
   | Draft.ContentState
   | Draft.ContentBlock
   | Draft.EditorState
+  | Result
 
 type Renderable = Draft.EditorState
 type Compose = '@Operable:Compose'

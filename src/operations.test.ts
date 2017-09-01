@@ -100,18 +100,16 @@ describe('Operations', () => {
     })
 
     it('runs the given function for every section', () => {
-      const runnedWith: Array<DraftableWrapper> = []
+      const runnedWith: DraftableWrapper[] = []
       const result = new DraftableResult({
-        state: utils.ensureRenderable(
-          'This will turn into...\r\n...At least two sections'
-        )
+        state: utils.ensureRenderable('At least\r\nTwo sections')
       })
 
       const operation = Operation.sections(draftable =>
         runnedWith.push(draftable)
       )
 
-      Operations.reject(result, operation)
+      Operations.sections(result, operation)
 
       expect(runnedWith.length).to.eql(2)
     })

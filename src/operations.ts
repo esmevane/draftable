@@ -1,5 +1,6 @@
 import { Map } from 'immutable'
 import DraftableResult from './draftable-result'
+import Draftable from './draftable'
 import * as utils from './utils'
 
 export const Compose: Compose = '@Operable:Compose'
@@ -27,8 +28,15 @@ export const reject: PerformOperation = (
 
 export const sections: PerformOperation = (
   result: Result,
-  _operation: Operable
-): Result => result
+  operation: Operable
+): Result => {
+  const transformation = operation.getPayload() as DraftableHandler
+  utils
+    .getSections(result.getState())
+    .map(section => transformation(Draftable.of(section)))
+
+  return result
+}
 
 export const fetch = (key: OperableTypes): PerformOperation => {
   const Operations: Map<string, PerformOperation> = Map({

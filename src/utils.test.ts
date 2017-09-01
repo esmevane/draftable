@@ -2,6 +2,17 @@ import { expect } from 'chai'
 import { ContentState, ContentBlock, EditorState } from 'draft-js'
 import * as utils from './utils'
 
+describe('sections', () => {
+  it('returns the content blocks of an EditorState', () => {
+    const editorState: EditorState = utils.ensureRenderable('One\r\nTwo')
+    const sections: ContentBlock[] = editorState
+      .getCurrentContent()
+      .getBlocksAsArray()
+
+    expect(utils.getSections(editorState)).to.eql(sections)
+  })
+})
+
 describe('getText', () => {
   it('returns the text of an EditorState', () => {
     const message: string = 'Hey you!'

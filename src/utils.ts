@@ -2,6 +2,9 @@ import { ContentState, EditorState } from 'draft-js'
 
 export const createEmpty = (): Draft.EditorState => EditorState.createEmpty()
 
+export const getSections = (state: DraftableUnit): Draft.ContentBlock[] =>
+  ensureRenderable(state).getCurrentContent().getBlocksAsArray()
+
 export const getText = (state: DraftableUnit): string => {
   const constructor = state.constructor.name
 
