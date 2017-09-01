@@ -9,15 +9,19 @@ class Operation implements Operable {
     return new Operation({ type: Operations.Reject, payload })
   }
 
+  static sections(payload: DraftableHandler): Operation {
+    return new Operation({ type: Operations.Sections, payload })
+  }
+
   private type: OperableTypes
-  private payload: OperablePayloads
+  private payload: DraftableUnit
 
   constructor(options: OperableOptions) {
     this.type = options.type
     this.payload = options.payload
   }
 
-  getPayload(): OperablePayloads {
+  getPayload(): DraftableUnit {
     return this.payload
   }
 

@@ -4,7 +4,7 @@ import Operation from './operation'
 import * as Operations from './operations'
 import * as utils from './utils'
 
-class Draftable {
+class Draftable implements DraftableWrapper {
   static of(draftableUnit: DraftableUnit): Draftable {
     return new Draftable(Operation.init(draftableUnit))
   }
@@ -30,6 +30,10 @@ class Draftable {
 
   reject(reason: DraftableError) {
     return new Draftable(this.operables.push(Operation.reject(reason)))
+  }
+
+  sections(handler: DraftableHandler) {
+    return new Draftable(this.operables.push(Operation.sections(handler)))
   }
 
   toOperations(): Array<Operable> {

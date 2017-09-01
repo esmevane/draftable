@@ -4,13 +4,21 @@ import Operation from './operation'
 import DraftableResult from './draftable-result'
 
 describe('Operation', () => {
-  const payload = 'Hello there!'
-
   describe('.init', () => {
+    const payload = 'Hello there!'
     const init = Operation.init(payload)
 
-    it('initializes with the payload', () => {
+    it('returns an init operation', () => {
       expect(init.getPayload()).to.eql(payload)
+    })
+  })
+
+  describe('.sections', () => {
+    const handleSection = draftable => draftable
+    const sections = Operation.sections(handleSection)
+
+    it('returns a sections operation', () => {
+      expect(sections.getPayload()).to.eql(handleSection)
     })
   })
 
@@ -18,7 +26,7 @@ describe('Operation', () => {
     const reason = 'Rejected for no raisin!'
     const rejection = Operation.reject(reason)
 
-    it('it returns a rejected DraftableResult', () => {
+    it('it returns a rejection operation', () => {
       expect(rejection.getPayload()).to.eql(reason)
     })
   })
