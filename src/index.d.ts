@@ -29,6 +29,7 @@ interface Result {
   isOk(): boolean
   getState(): DraftableUnit
   getError(): TextContent
+  getText(): TextContent
 }
 
 interface OperableOptions {

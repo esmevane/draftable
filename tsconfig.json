@@ -1,5 +1,5 @@
 {
-  "exclude": ["node_modules", "**/*.test.ts", "tmp"],
+  "exclude": ["node_modules", "tmp"],
   "compilerOptions": {
     "watch": true,
     "target": "es2017",
