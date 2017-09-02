@@ -41,6 +41,11 @@ class DraftableResult implements Result {
 
     return new DraftableResult({ active, state, error })
   }
+
+  setState(state: DraftableUnit): DraftableResult {
+    const { active, error } = this
+    return new DraftableResult({ active, state, error })
+  }
 }
 
 export default DraftableResult

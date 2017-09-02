@@ -38,10 +38,20 @@ describe('DraftableResult', () => {
 
   describe('getError', () => {
     it("returns any error it's been given", () => {
+      const state = DraftableResult.empty().getState()
       const message = 'Hey you messed something up wow'
-      const result = new DraftableResult({ error: message })
+      const result = new DraftableResult({ state, error: message })
 
       expect(result.getError()).to.eql(message)
+    })
+  })
+
+  describe('setState', () => {
+    it('changes the state', () => {
+      const state = DraftableResult.empty().getState()
+      const result = DraftableResult.empty().setState(state)
+
+      expect(result.getState()).to.eql(state)
     })
   })
 

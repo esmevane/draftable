@@ -2,6 +2,28 @@ import { expect } from 'chai'
 import { ContentState, ContentBlock, EditorState } from 'draft-js'
 import * as utils from './utils'
 
+describe('sections', () => {
+  it('returns the content blocks of an EditorState', () => {
+    const editorState: EditorState = utils.ensureRenderable('One\r\nTwo')
+    const sections: ContentBlock[] = editorState
+      .getCurrentContent()
+      .getBlocksAsArray()
+
+    expect(utils.getSections(editorState)).to.eql(sections)
+  })
+})
+
+describe('merge', () => {
+  it('combines two EditorStates', () => {
+    const firstState: EditorState = utils.ensureRenderable('One\nTwo')
+    const secondState: EditorState = utils.ensureRenderable('Three\nFour')
+
+    const subject = utils.merge(firstState, secondState)
+
+    expect(utils.getText(subject)).to.eql('One\nTwo\nThree\nFour')
+  })
+})
+
 describe('getText', () => {
   it('returns the text of an EditorState', () => {
     const message: string = 'Hey you!'
